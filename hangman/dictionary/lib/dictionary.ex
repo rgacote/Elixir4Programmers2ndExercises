@@ -3,16 +3,22 @@ defmodule Dictionary do
   Documentation for `Dictionary`.
   """
 
+  # This is a compile-time code execution.
+  # assets/words not dynamically loadable at run time.
+  @word_list "assets/words.txt"
+             |> File.read!()
+             |> String.split(~r/\n/, trim: true)
+
   @doc """
   Word list.
 
   """
   def word_list do
-    eg = File.read!("assets/words.txt")
-    String.split(eg, ~r/\n/, trim: true)
+    @word_list
   end
 
   def random_word do
-    Enum.random(word_list())
+    word_list()
+    |> Enum.random()
   end
 end
