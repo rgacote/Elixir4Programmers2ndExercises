@@ -4,15 +4,15 @@ defmodule Dictionary do
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Dictionary.hello()
-      :ok
+  Word list.
 
   """
-  def hello do
-    IO.puts("!!Hello world!!")
+  def word_list do
+    eg = File.read!("assets/words.txt")
+    String.split(eg, ~r/\n/, trim: true)
+  end
+
+  def random_word do
+    Enum.random(word_list())
   end
 end
