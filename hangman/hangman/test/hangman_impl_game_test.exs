@@ -61,14 +61,32 @@ defmodule HangmanImplGameTest do
     assert tally.game_state == :good_guess
   end
 
-  test "we can handle a sequence of moves" do
+  test "we can handle a sequence of winning moves" do
     [
       # guess | state  turns  letters                 used
       ["a", :bad_guess, 6, ["_", "_", "_", "_", "_"], ["a"]],
       ["a", :already_used, 6, ["_", "_", "_", "_", "_"], ["a"]],
       ["e", :good_guess, 6, ["_", "e", "_", "_", "_"], ["a", "e"]],
       ["x", :bad_guess, 5, ["_", "e", "_", "_", "_"], ["a", "e", "x"]],
-      ["l", :good_guess, 5, ["_", "e", "l", "l", "_"], ["a", "e", "l", "x"]]
+      ["l", :good_guess, 5, ["_", "e", "l", "l", "_"], ["a", "e", "l", "x"]],
+      ["h", :good_guess, 5, ["h", "e", "l", "l", "_"], ["a", "e", "h", "l", "x"]],
+      ["o", :won, 5, ["h", "e", "l", "l", "o"], ["a", "e", "h", "l", "o", "x"]],
+      ["q", :won, 5, ["h", "e", "l", "l", "o"], ["a", "e", "h", "l", "o", "x"]]
+    ]
+    |> test_sequence_of_moves()
+  end
+
+  test "we can handle a sequence of losing moves" do
+    [
+      # guess | state  turns  letters                 used
+      ["a", :bad_guess, 6, ["_", "_", "_", "_", "_"], ["a"]],
+      ["b", :bad_guess, 5, ["_", "_", "_", "_", "_"], ["a", "b"]],
+      ["c", :bad_guess, 4, ["_", "_", "_", "_", "_"], ["a", "b", "c"]],
+      ["d", :bad_guess, 3, ["_", "_", "_", "_", "_"], ["a", "b", "c", "d"]],
+      ["f", :bad_guess, 2, ["_", "_", "_", "_", "_"], ["a", "b", "c", "d", "f"]],
+      ["g", :bad_guess, 1, ["_", "_", "_", "_", "_"], ["a", "b", "c", "d", "f", "g"]],
+      ["i", :lost, 0, ["_", "_", "_", "_", "_"], ["a", "b", "c", "d", "f", "g", "i"]],
+      ["j", :lost, 0, ["_", "_", "_", "_", "_"], ["a", "b", "c", "d", "f", "g", "i"]]
     ]
     |> test_sequence_of_moves()
   end
