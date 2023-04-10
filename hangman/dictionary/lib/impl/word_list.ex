@@ -1,6 +1,6 @@
 defmodule Dictionary.Impl.WordList do
   @moduledoc """
-  Documentation for `Dictionary`.
+  Documentation for `Dictionary.Impl.WordList`.
   """
 
   @type t :: list(String.t())
