@@ -3,5 +3,8 @@ defmodule TextClient do
   Documentation for `TextClient`.
   """
   @spec start() :: :ok
-  defdelegate start, to: TextClient.Impl.Player
+  def start() do
+    TextClient.Runtime.RemoteHangman.connect()
+    |> TextClient.Impl.Player.start()
+  end
 end
